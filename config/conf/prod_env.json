@@ -1,0 +1,6 @@
+{
+  "NODE_ENV": "development",
+  "app_title": "國立臺北大學資訊管理所",
+  "react": "react-with-addons",
+  "API_HOST":"http://ntpumis2015.ddns.net:8080/"
+}
