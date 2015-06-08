@@ -9,6 +9,6 @@ ModalTrigger = ReactBootstrap.ModalTrigger
 Test = React.createClass
   displayName:'Test'
   render: ->
-    <div>Test</div>
+    <div>Test{@props.routeParams.id}</div>
 module.exports = Test
 

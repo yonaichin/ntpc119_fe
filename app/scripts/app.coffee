@@ -12,6 +12,7 @@ Test = require './test'
 Login = require './login'
 Navbar = require './components/navbar'
 Firecase = require './firecase'
+FirecaseDetail = require './firecase-detail'
 Main = React.createClass
   mixins:[ReactFireMixin]
   displayName:'Main'
@@ -25,7 +26,7 @@ Main = React.createClass
         user_type : info.user_type
   componentWillMount:->
     @bindAsArray @state.FirebaseInstance.OnGoingCases, "OnGoingCases"
-    @bindAsArray @state.FirebaseInstance.FireCase.orderByChild("status").equalTo('ongoing'),'Firecases'
+    @bindAsObject @state.FirebaseInstance.FireCase.orderByChild("status").equalTo('ongoing'),'Firecases'
   componentWillUnmount:->
     @state.FirebaseInstance.FireCase.off()
     @state.FirebaseInstance.OnGoingCases.off()
@@ -49,14 +50,16 @@ Main = React.createClass
         <RouteHandler userInfo={@state.UserInfo}
                       firebaseInstance={@state.FirebaseInstance}
                       fireCases={@state.Firecases}
+                      {...@props}
                       onGoingCases={@state.OnGoingCases}/>
       </div>
 routes =
   <Route name="index" path="/" handler={Main}>
     <DefaultRoute handler={Index}/>
-    <Route name="test" handler={Test}/>
-    <Route name="firecase" handler={Firecase}/>
+    <Route name="test" path="/test/:id" handler={Test}/>
+    <Route name="firecase" handler={Firecase} />
+    <Route name="firecase_detail" path="/firecase/detail/:id" handler={FirecaseDetail} />
   </Route>
 module.exports =
-  Router.run routes,(Handler)->
-    React.render <Handler />, document.querySelector '#app'
+  Router.run routes,Router.HashLocation,(Handler,state)->
+    React.render <Handler routeParams={state.params}/>, document.querySelector '#app'
