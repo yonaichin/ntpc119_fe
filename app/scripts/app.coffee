@@ -35,12 +35,15 @@ Main = React.createClass
       FireCase: new Firebase('https://ntpc119.firebaseio.com/Cases')
       OnGoingCases: new Firebase('https://ntpc119.firebaseio.com/OnGoingCases')
     OnGoingCases:[]
+    CurrentCaseID:null
     UserInfo:
       token : null || if sessionStorage.userInfo then JSON.parse(sessionStorage.userInfo).authentication_token else null
       name : null || if sessionStorage.userInfo then JSON.parse(sessionStorage.userInfo).name else null
       email : null || if sessionStorage.userInfo then JSON.parse(sessionStorage.userInfo).email else null
       rank : null || if sessionStorage.userInfo then JSON.parse(sessionStorage.userInfo).rank else null
       user_type : null || if sessionStorage.userInfo then JSON.parse(sessionStorage.userInfo).user_type else null
+  setCurrentCase:(id)->
+    @state.CurrentCaseID = id
   render:->
     if @state.UserInfo.token is null
       <Login SetLoginInfo={@loginHandler}/>
@@ -51,6 +54,7 @@ Main = React.createClass
                       firebaseInstance={@state.FirebaseInstance}
                       fireCases={@state.Firecases}
                       {...@props}
+                      setCurrentCase={@setCurrentCase}
                       onGoingCases={@state.OnGoingCases}/>
       </div>
 routes =

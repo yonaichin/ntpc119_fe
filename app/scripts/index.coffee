@@ -184,14 +184,28 @@ CaseModal = React.createClass
 OngoingCasesCard = React.createClass
   displayName:'OngoingCasesCard'
   render:->
-    <div className="row">
-      <div className="col s12 m5">
-        <div className="card-panel blue">
-          <h4 className="white-text">現有 <span className="red-text">{@props.ongoingCasesCount}</span> 件火警案件</h4>
-        </div>
+    <div className="col s12 m5">
+      <div className="card-panel blue">
+        <h4 className="white-text">現有 <span className="red-text">{@props.ongoingCasesCount}</span> 件火警案件</h4>
       </div>
     </div>
-
+Clock = React.createClass
+  displayName:'Clock'
+  getInitialState:->
+    currentTime:new Date().getTime()
+  tick:->
+    @setState
+      currentTime:@state.currentTime+1000
+  componentDidMount:->
+    @interval = setInterval @tick,1000
+  componentWillUnmount:->
+    clearInterval @interval
+  render:->
+    <div className="col s12 m5">
+      <div className="card-panel red lighten-2">
+        <h4 className="white-text">{(new Date(@state.currentTime)).toLocaleTimeString()}</h4>
+      </div>
+    </div>
 Index = React.createClass
   displayName:'INDEX'
   getInitialState:->
@@ -208,15 +222,19 @@ Index = React.createClass
           <a className="btn-floating btn-large waves-effect waves-light red" onClick={@openModal}><i className="mdi-content-add"></i></a>
         </div>
         <h3>指揮中心 Dashboard</h3>
-        <OngoingCasesCard ongoingCasesCount={@props.onGoingCases.length}/>
+        <div className="row">
+          <Clock />
+          <OngoingCasesCard ongoingCasesCount={@props.onGoingCases.length}/>
+        </div>
         <CaseModal caseNo={@state.case_no} userInfo={@props.userInfo} firebaseInstance={@props.firebaseInstance}/>
       </div>
     else
       <div className="container">
-        <div className="fixed-action-btn" >
-          <a className="btn-floating btn-large waves-effect waves-light red" onClick={@openModal}><i className="mdi-content-add"></i></a>
-        </div>
         <h3>火警現場 Dashboard</h3>
-        <OngoingCasesCard ongoingCasesCount={@props.onGoingCases.length}/> </div>
+        <div className="row">
+          <Clock />
+          <OngoingCasesCard ongoingCasesCount={@props.onGoingCases.length}/>
+        </div>
+        </div>
 module.exports = Index
 

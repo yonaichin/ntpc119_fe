@@ -127,6 +127,8 @@ Commander = React.createClass
           <div className="card-content">
             <span className="card-title activator white-text text-darken-4">案件地址<i className="mdi-navigation-more-vert right"></i></span>
             <p>{caseInformation.address}</p>
+            <button className="btn">查看甲種圖</button>
+            <button className="btn">查看乙種圖</button>
           </div>
           <div className="card-reveal">
             <span className="card-title grey-text text-darken-4">案件地址<i className="mdi-navigation-close right"></i></span>

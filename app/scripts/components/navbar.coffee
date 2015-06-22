@@ -10,7 +10,7 @@ Navbar = React.createClass
   render : ->
     <nav>
       <div className="nav-wrapper red darken-3">
-        <Link to="index" className="brand-logo">NTPC119</Link>
+        <Link to="index" className="brand-logo">火災現場資源管理系統</Link>
         <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
         <ul className="right hide-on-med-and-down">
           <li><Link to="firecase">案情資訊</Link></li>
