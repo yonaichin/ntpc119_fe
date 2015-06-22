@@ -1,6 +1,8 @@
-NTPU_MIS
-=====================
+NTPC119_FE
+====================
+## Description
 
+This app is build with reactjs and using firebase as backend service.
 
 ## key setting
 1. coffee script
